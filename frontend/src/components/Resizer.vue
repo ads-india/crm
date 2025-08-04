@@ -18,7 +18,7 @@ import { ref } from 'vue'
 const props = defineProps({
   defaultWidth: {
     type: Number,
-    default: 352,
+    default: 475,
   },
   minWidth: {
     type: Number,

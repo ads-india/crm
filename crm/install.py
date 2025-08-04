@@ -164,6 +164,10 @@ def add_default_fields_layout(force=False):
 			"doctype": "CRM Call Log",
 			"layout": '[{"name":"details_section","columns":[{"name":"column_uMSG","fields":["type","from","duration"]},{"name":"column_wiZT","fields":["to","status","caller","receiver"]}]}]',
 		},
+		"Yorecare Enquiry-Quick Entry": {
+			"doctype": "Yorecare Enquiry",
+			"layout": '[{"label":"Yorecare Quick Entry","name":"yorecare_quick_entry_section","opened":true,"columns":[{"name":"column_main","fields":["crm_lead","user_name","phone_number","age","gender","source","type","medicine_order_status","prescription","details"]}]}]'
+		},
 	}
 
 	sidebar_fields_layouts = {
@@ -182,6 +186,10 @@ def add_default_fields_layout(force=False):
 		"CRM Organization-Side Panel": {
 			"doctype": "CRM Organization",
 			"layout": '[{"label": "Details", "name": "details_section", "opened": true, "columns": [{"name": "column_IJOV", "fields": ["organization_name", "website", "territory", "industry", "no_of_employees", "address"]}]}]',
+		},
+		"Yorecare Enquiry-Side Panel": {
+			"doctype": "Yorecare Enquiry",
+			"layout": '[{"label":"Details","name":"details_section","opened":true,"columns":[{"name":"column_details","fields":["crm_lead","user_name","phone_number","age","gender","source","type","medicine_order_status","prescription","details"]}]}]'
 		},
 	}
 

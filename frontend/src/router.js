@@ -84,6 +84,43 @@ const routes = [
     name: 'Call Logs',
     component: () => import('@/pages/CallLogs.vue'),
   },
+  // Yorecare Enquiry Routes
+  {
+    alias: '/medicine-orders',
+    path: '/medicine-orders/view/:viewType?',
+    name: 'Medicine Orders',
+    component: () => import('@/pages/MedicineOrders.vue'),
+  },
+  {
+    path: '/medicine-orders/:medicineOrderId',
+    name: 'Medicine Order',
+    component: () => import(`@/pages/${handleMobileView('MedicineOrder')}.vue`),
+    props: true,
+  },
+  {
+    alias: '/lab-tests',
+    path: '/lab-tests/view/:viewType?',
+    name: 'Lab Tests',
+    component: () => import('@/pages/LabTests.vue'),
+  },
+  {
+    path: '/lab-tests/:labTestId',
+    name: 'Lab Test',
+    component: () => import(`@/pages/${handleMobileView('LabTest')}.vue`),
+    props: true,
+  },
+  {
+    alias: '/contact-expert-requests',
+    path: '/contact-expert-requests/view/:viewType?',
+    name: 'Contact Expert Requests',
+    component: () => import('@/pages/ContactExpertRequests.vue'),
+  },
+  {
+    path: '/contact-expert-requests/:contactExpertRequestId',
+    name: 'Contact Expert Request',
+    component: () => import(`@/pages/${handleMobileView('ContactExpertRequest')}.vue`),
+    props: true,
+  },
   {
     path: '/welcome',
     name: 'Welcome',

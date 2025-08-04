@@ -29,6 +29,59 @@
           </template>
         </SidebarLink>
       </div>
+      
+      <!-- Yorecare Enquiry Dropdown Section -->
+      <div class="mb-3">
+        <Section
+          :label="'Yorecare Enquiry'"
+          :hideLabel="false"
+          :opened="yorecareEnquiryOpened"
+        >
+          <template #header="{ opened, hide, toggle }">
+            <div
+              v-if="!hide"
+              class="flex cursor-pointer gap-1.5 px-1 text-base font-medium text-ink-gray-5 transition-all duration-300 ease-in-out"
+              :class="
+                isSidebarCollapsed
+                  ? 'ml-0 h-0 overflow-hidden opacity-0'
+                  : 'ml-2 mt-4 h-7 w-auto opacity-100'
+              "
+              @click="toggle()"
+            >
+              <FeatherIcon
+                name="chevron-right"
+                class="h-4 text-ink-gray-9 transition-all duration-300 ease-in-out"
+                :class="{ 'rotate-90': opened }"
+              />
+              <span>{{ __('Yorecare Enquiry') }}</span>
+            </div>
+          </template>
+          <nav class="flex flex-col">
+            <SidebarLink
+              :icon="MedicineOrderIcon"
+              :label="__('Medicine Order')"
+              :to="{ name: 'Medicine Orders' }"
+              :isCollapsed="isSidebarCollapsed"
+              class="mx-2 my-0.5"
+            />
+            <SidebarLink
+              :icon="LabTestIcon"
+              :label="__('Lab Test')"
+              :to="{ name: 'Lab Tests' }"
+              :isCollapsed="isSidebarCollapsed"
+              class="mx-2 my-0.5"
+            />
+            <SidebarLink
+              :icon="PhoneIcon"
+              :label="__('Contact Expert Request')"
+              :to="{ name: 'Contact Expert Requests' }"
+              :isCollapsed="isSidebarCollapsed"
+              class="mx-2 my-0.5"
+            />
+          </nav>
+        </Section>
+      </div>
+
       <div v-for="view in allViews" :key="view.label">
         <div
           v-if="!view.hideLabel && isSidebarCollapsed && view.views?.length"
@@ -161,6 +214,10 @@ import PhoneIcon from '@/components/Icons/PhoneIcon.vue'
 import CollapseSidebar from '@/components/Icons/CollapseSidebar.vue'
 import NotificationsIcon from '@/components/Icons/NotificationsIcon.vue'
 import HelpIcon from '@/components/Icons/HelpIcon.vue'
+// New icons for Yorecare Enquiry options (you'll need to create these or use existing ones)
+import MedicineOrderIcon from '@/components/Icons/MedicineOrderIcon.vue'
+import LabTestIcon from '@/components/Icons/LabTestIcon.vue'
+// import ExpertIcon from '@/components/Icons/ExpertIcon.vue'
 import SidebarLink from '@/components/SidebarLink.vue'
 import Notifications from '@/components/Notifications.vue'
 import Settings from '@/components/Settings/Settings.vue'
@@ -193,6 +250,7 @@ const { getPinnedViews, getPublicViews } = viewsStore()
 const { toggle: toggleNotificationPanel } = notificationsStore()
 
 const isSidebarCollapsed = useStorage('isSidebarCollapsed', false)
+const yorecareEnquiryOpened = ref(true) // Controls if Yorecare Enquiry section is expanded by default
 
 const isFCSite = ref(window.is_fc_site)
 const isDemoSite = ref(window.is_demo_site)
