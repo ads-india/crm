@@ -42,7 +42,8 @@
                 >
                   <div
                     v-if="field.visible"
-                    class="field flex items-center gap-2 px-3 leading-5 first:mt-3"
+                    class="field flex items-start gap-2 px-3 leading-5 first:mt-3"
+                    :class="{ 'items-center': !isTextAreaField(field) }"
                   >
                     <Tooltip :text="__(field.label)" :hoverDelay="1">
                       <div
@@ -63,9 +64,10 @@
                         </div>
                       </div>
                     </Tooltip>
-                    <div class="flex items-center justify-between w-[65%]">
+                    <div class="flex items-start justify-between w-[65%]">
                       <div
                         class="grid min-h-[28px] flex-1 items-center overflow-hidden text-base"
+                        :class="{ 'items-start': isTextAreaField(field) }"
                       >
                         <div
                           v-if="
@@ -79,10 +81,22 @@
                               'Dropdown',
                             ].includes(field.fieldtype)
                           "
-                          class="flex h-7 cursor-pointer items-center px-2 py-1 text-ink-gray-5"
+                          class="flex cursor-pointer px-2 py-1 text-ink-gray-5"
+                          :class="{ 
+                            'h-7 items-center': !isTextAreaField(field),
+                            'min-h-[28px] items-start': isTextAreaField(field)
+                          }"
                         >
                           <Tooltip :text="__(field.tooltip)">
-                            <div>{{ document.doc[field.fieldname] }}</div>
+                            <div 
+                              class="w-full"
+                              :class="{ 
+                                'whitespace-pre-wrap break-words word-break': isTextAreaField(field),
+                                'truncate': !isTextAreaField(field)
+                              }"
+                            >
+                              {{ document.doc[field.fieldname] }}
+                            </div>
                           </Tooltip>
                         </div>
                         <div v-else-if="field.fieldtype === 'Dropdown'">
@@ -339,7 +353,7 @@
                           @change.stop="fieldChange($event.target.value, field)"
                         />
                       </div>
-                      <div class="ml-1">
+                      <div class="ml-1 flex-shrink-0">
                         <ArrowUpRightIcon
                           v-if="
                             field.fieldtype === 'Link' &&
@@ -545,6 +559,11 @@ function isFieldVisible(field) {
 function firstVisibleIndex() {
   return _sections.value.findIndex((section) => section.visible)
 }
+
+// Helper function to check if field is a text area type
+function isTextAreaField(field) {
+  return ['Small Text', 'Text', 'Long Text', 'Code'].includes(field.fieldtype)
+}
 </script>
 
 <style scoped>
@@ -585,5 +604,11 @@ function firstVisibleIndex() {
 }
 .sections .section:last-of-type .column {
   max-height: none;
+}
+
+/* Custom styles for text area fields */
+.word-break {
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 </style>
