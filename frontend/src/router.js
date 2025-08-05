@@ -86,6 +86,18 @@ const routes = [
   },
   // Yorecare Enquiry Routes
   {
+    alias: '/yorecare-enquiries',
+    path: '/yorecare-enquiries/view/:viewType?',
+    name: 'Yorecare Enquiries',
+    component: () => import('@/pages/YorecareEnquiries.vue'),
+  },
+  {
+    path: '/yorecare-enquiries/:yorecareEnquiryId',
+    name: 'Yorecare Enquiry',
+    component: () => import(`@/pages/${handleMobileView('YorecareEnquiry')}.vue`),
+    props: true,
+  },
+  {
     alias: '/medicine-orders',
     path: '/medicine-orders/view/:viewType?',
     name: 'Medicine Orders',

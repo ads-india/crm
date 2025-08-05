@@ -58,6 +58,13 @@
           </template>
           <nav class="flex flex-col">
             <SidebarLink
+              :icon="YorecareEnquiriesIcon"
+              :label="__('Yorecare Enquiries')"
+              :to="{ name: 'Yorecare Enquiries' }"
+              :isCollapsed="isSidebarCollapsed"
+              class="mx-2 my-0.5"
+            />
+            <SidebarLink
               :icon="MedicineOrderIcon"
               :label="__('Medicine Order')"
               :to="{ name: 'Medicine Orders' }"
@@ -217,7 +224,7 @@ import HelpIcon from '@/components/Icons/HelpIcon.vue'
 // New icons for Yorecare Enquiry options (you'll need to create these or use existing ones)
 import MedicineOrderIcon from '@/components/Icons/MedicineOrderIcon.vue'
 import LabTestIcon from '@/components/Icons/LabTestIcon.vue'
-// import ExpertIcon from '@/components/Icons/ExpertIcon.vue'
+import YorecareEnquiriesIcon from '@/components/Icons/YorecareEnquiriesIcon.vue'
 import SidebarLink from '@/components/SidebarLink.vue'
 import Notifications from '@/components/Notifications.vue'
 import Settings from '@/components/Settings/Settings.vue'
