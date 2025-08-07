@@ -84,8 +84,10 @@
                           class="flex cursor-pointer px-2 py-1 text-ink-gray-5"
                           :class="{ 
                             'h-7 items-center': !isTextAreaField(field),
-                            'min-h-[28px] items-start': isTextAreaField(field)
+                            'min-h-[28px] items-start': isTextAreaField(field),
+                            'hover:text-black': field.fieldname === 'prescription'
                           }"
+                          @click="field.fieldname === 'prescription' ? handlePrescriptionClickRedirect(document.doc[field.fieldname]) : null"
                         >
                           <Tooltip :text="__(field.tooltip)">
                             <div 
@@ -563,6 +565,36 @@ function firstVisibleIndex() {
 // Helper function to check if field is a text area type
 function isTextAreaField(field) {
   return ['Small Text', 'Text', 'Long Text', 'Code'].includes(field.fieldtype)
+}
+
+// Updated function to handle prescription clicks
+async function handlePrescriptionClickRedirect(prescriptionUrl) {
+  try {
+    const apiUrl = `/api/method/yorecare_frappe_custom.yorecare.doctype.aws_s3_configuration.aws_s3_configuration.generate_presigned_url?url=${encodeURIComponent(prescriptionUrl)}`;
+    
+    // Fetch the presigned URL from the API
+    const response = await fetch(apiUrl);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    // Extract the presigned URL from the response
+    const presignedUrl = data.message;
+    
+    if (presignedUrl) {
+      // Open the presigned URL in a new tab
+      window.open(presignedUrl, '_blank');
+    } else {
+      console.error('No presigned URL found in response');
+      // Optionally show user-friendly error message
+    }
+  } catch (error) {
+    console.error('Error fetching presigned URL:', error);
+    // Optionally show user-friendly error message
+  }
 }
 </script>
 
