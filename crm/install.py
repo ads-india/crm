@@ -166,7 +166,7 @@ def add_default_fields_layout(force=False):
 		},
 		"Yorecare Enquiry-Quick Entry": {
 			"doctype": "Yorecare Enquiry",
-			"layout": '[{"label":"Yorecare Quick Entry","name":"yorecare_quick_entry_section","opened":true,"columns":[{"name":"column_main","fields":["crm_lead","user_name","phone_number","age","gender","source","type","medicine_order_status","prescription","details"]}]}]'
+			"layout": '[{"label":"Yorecare Quick Entry","name":"yorecare_quick_entry_section","opened":true,"columns":[{"name":"column_main","fields":["crm_lead","user_name","phone_number","age","gender","source","type","pincode","prescription","details","medicine_order_status"]}]}]'
 		},
 	}
 
@@ -189,7 +189,7 @@ def add_default_fields_layout(force=False):
 		},
 		"Yorecare Enquiry-Side Panel": {
 			"doctype": "Yorecare Enquiry",
-			"layout": '[{"label":"Details","name":"details_section","opened":true,"columns":[{"name":"column_details","fields":["crm_lead","user_name","phone_number","age","gender","source","type","medicine_order_status","prescription","details"]}]}]'
+			"layout": '[{"label":"Details","name":"details_section","opened":true,"columns":[{"name":"column_details","fields":["crm_lead","user_name","phone_number","age","gender","source","type","pincode","prescription","details","medicine_order_status"]}]}]'
 		},
 	}
 
