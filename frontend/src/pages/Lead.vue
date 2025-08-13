@@ -59,6 +59,24 @@
   <div v-if="lead?.data" class="flex h-full overflow-hidden">
     <Tabs as="div" v-model="tabIndex" :tabs="tabs">
       <template #tab-panel>
+        <div v-if="tabs[tabIndex]?.name === 'Yorecare Enquiries'">
+          <YorecareEnquiryListView
+            v-if="yorecareEnquiryRows.length"
+            class="mt-4"
+            :rows="yorecareEnquiryRows"
+            :columns="yorecareEnquiryColumns"
+            :options="{ selectable: false, showTooltip: false }"
+          />
+          <div
+            v-else
+            class="grid flex-1 place-items-center text-xl font-medium text-ink-gray-4"
+          >
+            <div class="flex flex-col items-center justify-center space-y-3">
+              <DetailsIcon class="!h-10 !w-10" />
+              <div>{{ __('No Yorecare Enquiries Found') }}</div>
+            </div>
+          </div>
+        </div>
         <Activities
           ref="activities"
           doctype="CRM Lead"
@@ -495,6 +513,12 @@ const tabs = computed(() => {
       icon: WhatsAppIcon,
       condition: () => whatsappEnabled.value,
     },
+    {
+      name: 'Yorecare Enquiries',
+      label: __('Yorecare Enquiries'),
+      icon: DetailsIcon, // You can replace this with a custom YorecareIcon
+      count: computed(() => yorecareEnquiries.data?.length || 0),
+    },
   ]
   return tabOptions.filter((tab) => (tab.condition ? tab.condition() : true))
 })
@@ -537,6 +561,60 @@ async function deleteLead(name) {
 async function deleteLeadWithModal(name) {
   showDeleteLinkedDocModal.value = true
 }
+
+
+// Add this resource to fetch yorecare enquiries (add this after the lead resource definition)
+const yorecareEnquiries = createResource({
+  url: 'yorecare_frappe_custom.yorecare.doctype.yorecare_enquiry.api.get_linked_enquiries',
+  cache: ['yorecareEnquiries', props.leadId],
+  params: {
+    crm_lead: props.leadId,
+  },
+  auto: true,
+})
+
+// Add these computed properties for the enquiry rows and columns
+const yorecareEnquiryRows = computed(() => {
+  if (!yorecareEnquiries.data || yorecareEnquiries.data.length === 0) return []
+  return yorecareEnquiries.data.map((row) => getYorecareEnquiryRowObject(row))
+})
+
+const yorecareEnquiryColumns = computed(() => enquiryColumns)
+
+// Add this function to format yorecare enquiry data
+function getYorecareEnquiryRowObject(enquiry) {
+  return {
+    status: enquiry.status,
+    type: enquiry.type,
+    source: enquiry.source,
+    name: enquiry.name,
+    _isClickable: true,
+  }
+}
+
+// Add this columns definition - single column showing enquiry ID
+const enquiryColumns = [
+  {
+    label: __('ID'),
+    key: 'name',
+    width: '12rem',
+  },
+  {
+    label: __('Status'),
+    key: 'status',
+    width: '12rem',
+  },
+  {
+    label: __('Type'),
+    key: 'type',
+    width: '12rem',
+  },
+  {
+    label: __('Source'),
+    key: 'source',
+    width: '12rem',
+  },
+]
 
 const activities = ref(null)
 
