@@ -73,7 +73,7 @@
           >
             <div class="flex flex-col items-center justify-center space-y-3">
               <DetailsIcon class="!h-10 !w-10" />
-              <div>{{ __('No Yorecare Enquiries Found') }}</div>
+              <div>{{ __('No YC Enquiries Found') }}</div>
             </div>
           </div>
         </div>
@@ -473,11 +473,6 @@ const tabs = computed(() => {
       icon: ActivityIcon,
     },
     {
-      name: 'Emails',
-      label: __('Emails'),
-      icon: EmailIcon,
-    },
-    {
       name: 'Comments',
       label: __('Comments'),
       icon: CommentIcon,
@@ -515,8 +510,8 @@ const tabs = computed(() => {
     },
     {
       name: 'Yorecare Enquiries',
-      label: __('Yorecare Enquiries'),
-      icon: DetailsIcon, // You can replace this with a custom YorecareIcon
+      label: __('YC Enquiries'),
+      icon: DetailsIcon,
       count: computed(() => yorecareEnquiries.data?.length || 0),
     },
   ]
