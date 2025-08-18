@@ -335,29 +335,16 @@ class CRMLead(Document):
 				"width": "12rem",
 			},
 			{
-				"label": "Organization",
-				"type": "Link",
-				"key": "organization",
-				"options": "CRM Organization",
-				"width": "10rem",
-			},
-			{
-				"label": "Status",
-				"type": "Select",
-				"key": "status",
-				"width": "8rem",
-			},
-			{
-				"label": "Email",
-				"type": "Data",
-				"key": "email",
-				"width": "12rem",
-			},
-			{
 				"label": "Mobile No",
 				"type": "Data",
 				"key": "mobile_no",
 				"width": "11rem",
+			},
+			{
+				"label": "Tags",
+				"type": "Data",
+				"key": "custom_tags",
+				"width": "10rem",
 			},
 			{
 				"label": "Assigned To",
