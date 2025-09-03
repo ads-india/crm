@@ -268,7 +268,8 @@ declare module 'vue' {
     WhatsappTemplateSelectorModal: typeof import('./src/components/Modals/WhatsappTemplateSelectorModal.vue')['default']
     YorecareEnquiriesIcon: typeof import('./src/components/Icons/YorecareEnquiriesIcon.vue')['default']
     YorecareEnquiriesListView: typeof import('./src/components/ListViews/YorecareEnquiriesListView.vue')['default']
-    YorecareEnquiryListView: typeof import('./src/components/ListViews/YorecareEnquiryListView.vue')['default']
     YorecareEnquiryModal: typeof import('./src/components/Modals/YorecareEnquiryModal.vue')['default']
+    YorecareLogModal: typeof import('./src/components/Modals/YorecareLogModal.vue')['default']
+    YorecareLogsListView: typeof import('./src/components/ListViews/YorecareLogsListView.vue')['default']
   }
 }

@@ -30,10 +30,10 @@
         </SidebarLink>
       </div>
       
-      <!-- Yorecare Enquiry Dropdown Section -->
+      <!-- Yorecare Dropdown Section -->
       <div class="mb-3">
         <Section
-          :label="'Yorecare Enquiry'"
+          :label="'Yorecare'"
           :hideLabel="false"
           :opened="yorecareEnquiryOpened"
         >
@@ -53,10 +53,17 @@
                 class="h-4 text-ink-gray-9 transition-all duration-300 ease-in-out"
                 :class="{ 'rotate-90': opened }"
               />
-              <span>{{ __('Yorecare Enquiry') }}</span>
+              <span>{{ __('Yorecare') }}</span>
             </div>
           </template>
           <nav class="flex flex-col">
+            <SidebarLink
+              :icon="NoteIcon"
+              :label="__('Yorecare Log')"
+              :to="{ name: 'Yorecare Logs' }"
+              :isCollapsed="isSidebarCollapsed"
+              class="mx-2 my-0.5"
+            />
             <SidebarLink
               :icon="YorecareEnquiriesIcon"
               :label="__('Yorecare Enquiries')"
@@ -221,7 +228,6 @@ import PhoneIcon from '@/components/Icons/PhoneIcon.vue'
 import CollapseSidebar from '@/components/Icons/CollapseSidebar.vue'
 import NotificationsIcon from '@/components/Icons/NotificationsIcon.vue'
 import HelpIcon from '@/components/Icons/HelpIcon.vue'
-// New icons for Yorecare Enquiry options (you'll need to create these or use existing ones)
 import MedicineOrderIcon from '@/components/Icons/MedicineOrderIcon.vue'
 import LabTestIcon from '@/components/Icons/LabTestIcon.vue'
 import YorecareEnquiriesIcon from '@/components/Icons/YorecareEnquiriesIcon.vue'
@@ -257,7 +263,7 @@ const { getPinnedViews, getPublicViews } = viewsStore()
 const { toggle: toggleNotificationPanel } = notificationsStore()
 
 const isSidebarCollapsed = useStorage('isSidebarCollapsed', false)
-const yorecareEnquiryOpened = ref(true) // Controls if Yorecare Enquiry section is expanded by default
+const yorecareEnquiryOpened = ref(true) // Controls if Yorecare section is expanded by default
 
 const isFCSite = ref(window.is_fc_site)
 const isDemoSite = ref(window.is_demo_site)
