@@ -58,13 +58,6 @@
           </template>
           <nav class="flex flex-col">
             <SidebarLink
-              :icon="NoteIcon"
-              :label="__('Yorecare Log')"
-              :to="{ name: 'Yorecare Logs' }"
-              :isCollapsed="isSidebarCollapsed"
-              class="mx-2 my-0.5"
-            />
-            <SidebarLink
               :icon="YorecareEnquiriesIcon"
               :label="__('Yorecare Enquiries')"
               :to="{ name: 'Yorecare Enquiries' }"
@@ -268,51 +261,56 @@ const yorecareEnquiryOpened = ref(true) // Controls if Yorecare section is expan
 const isFCSite = ref(window.is_fc_site)
 const isDemoSite = ref(window.is_demo_site)
 
-const allViews = computed(() => {
-  const links = [
-    {
-      label: 'Dashboard',
-      icon: LucideLayoutDashboard,
-      to: 'Dashboard',
-      condition: () => isManager(),
-    },
-    {
-      label: 'Leads',
-      icon: LeadsIcon,
-      to: 'Leads',
-    },
-    {
-      label: 'Deals',
-      icon: DealsIcon,
-      to: 'Deals',
-    },
-    {
-      label: 'Contacts',
-      icon: ContactsIcon,
-      to: 'Contacts',
-    },
-    {
-      label: 'Organizations',
-      icon: OrganizationsIcon,
-      to: 'Organizations',
-    },
-    {
-      label: 'Notes',
-      icon: NoteIcon,
-      to: 'Notes',
-    },
-    {
-      label: 'Tasks',
-      icon: TaskIcon,
-      to: 'Tasks',
-    },
-    {
-      label: 'Call Logs',
-      icon: PhoneIcon,
-      to: 'Call Logs',
-    },
-  ]
+const links = [
+  {
+    label: 'Dashboard',
+    icon: LucideLayoutDashboard,
+    to: 'Dashboard',
+    condition: () => isManager(),
+  },
+  {
+    label: 'Leads',
+    icon: LeadsIcon,
+    to: 'Leads',
+  },
+  {
+    label: 'Deals',
+    icon: DealsIcon,
+    to: 'Deals',
+  },
+  {
+    label: 'Contacts',
+    icon: ContactsIcon,
+    to: 'Contacts',
+  },
+  {
+    label: 'Organizations',
+    icon: OrganizationsIcon,
+    to: 'Organizations',
+  },
+  {
+    label: 'Notes',
+    icon: NoteIcon,
+    to: 'Notes',
+  },
+  {
+    label: 'Tasks',
+    icon: TaskIcon,
+    to: 'Tasks',
+  },
+  {
+    label: 'Call Logs',
+    icon: PhoneIcon,
+    to: 'Call Logs',
+  },
+  {
+    label: 'Yorecare Log',
+    icon: NoteIcon,
+    to: 'Yorecare Logs',
+  },
+]
 
+const allViews = computed(() => {
   let _views = [
     {
       name: 'All Views',
@@ -374,6 +372,8 @@ function getIcon(routeName, icon) {
       return NoteIcon
     case 'Call Logs':
       return PhoneIcon
+    case 'Yorecare Logs':
+      return NoteIcon
     default:
       return PinIcon
   }

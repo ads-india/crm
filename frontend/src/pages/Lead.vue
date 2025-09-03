@@ -50,6 +50,12 @@
         </template>
       </Dropdown>
       <Button
+        :label="__('Dashboard')"
+        @click="openDashboard"
+      >
+        <template #prefix><FeatherIcon name="external-link" class="h-4" /></template>
+      </Button>
+      <Button
         :label="__('Convert to Deal')"
         variant="solid"
         @click="showConvertToDealModal = true"
@@ -344,6 +350,10 @@ const errorTitle = ref('')
 const errorMessage = ref('')
 const showDeleteLinkedDocModal = ref(false)
 const showConvertToDealModal = ref(false)
+
+function openDashboard() {
+  window.open('https://dashboard.yore.care/', '_blank')
+}
 
 const { triggerOnChange, assignees, document } = useDocument(
   'CRM Lead',

@@ -9,6 +9,12 @@
         :actions="enquiryListView.customListActions"
       />
       <Button
+        :label="__('Dashboard')"
+        @click="openDashboard"
+      >
+        <template #prefix><FeatherIcon name="external-link" class="h-4" /></template>
+      </Button>
+      <Button
         variant="solid"
         :label="__('Create')"
         @click="showEnquiryModal = true"
@@ -380,6 +386,10 @@ function getEnquiryStatusColor(status) {
     '': 'gray'
   }
   return statusColors[status] || 'gray'
+}
+
+function openDashboard() {
+  window.open('https://dashboard.yore.care/', '_blank')
 }
 
 function onNewClick(column) {
