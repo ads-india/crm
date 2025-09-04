@@ -570,7 +570,7 @@ function isTextAreaField(field) {
 // Updated function to handle prescription clicks
 async function handlePrescriptionClickRedirect(prescriptionUrl) {
   try {
-    const apiUrl = `/api/method/yorecare_frappe_custom.yorecare.doctype.aws_s3_configuration.aws_s3_configuration.generate_presigned_url?url=${encodeURIComponent(prescriptionUrl)}`;
+    const apiUrl = `/api/method/yorecare_frappe_custom.yorecare.doctype.yorecare_settings.yorecare_settings.generate_presigned_url?url=${encodeURIComponent(prescriptionUrl)}`;
     
     // Fetch the presigned URL from the API
     const response = await fetch(apiUrl);
