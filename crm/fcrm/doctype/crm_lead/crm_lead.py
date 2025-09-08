@@ -341,6 +341,12 @@ class CRMLead(Document):
 				"width": "11rem",
 			},
 			{
+				"label": "Inbox",
+				"type": "Check",
+				"key": "custom_inbox",
+				"width": "10rem",
+			},
+			{
 				"label": "Tags",
 				"type": "Data",
 				"key": "custom_tags",

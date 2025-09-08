@@ -252,6 +252,7 @@
     @selectionsChanged="
       (selections) => viewControls.updateSelections(selections)
     "
+    @updateInbox="updateCRMLeadInbox"
   />
   <div v-else-if="leads.data" class="flex h-full items-center justify-center">
     <div
@@ -312,6 +313,7 @@ import { formatDate, timeAgo, website, formatTime } from '@/utils'
 import { Avatar, Tooltip, Dropdown } from 'frappe-ui'
 import { useRoute } from 'vue-router'
 import { ref, computed, reactive, h } from 'vue'
+import { createResource } from 'frappe-ui'
 
 const { getFormattedPercent, getFormattedFloat, getFormattedCurrency } =
   getMeta('CRM Lead')
@@ -573,5 +575,32 @@ const task = ref({
 function showTask(name) {
   docname.value = name
   showTaskModal.value = true
+}
+
+function updateCRMLeadInbox({ leadId, currentValue }) {
+  if (currentValue === 1) {
+    const updateInbox = createResource({
+      url: 'frappe.client.set_value',
+      makeParams: () => ({
+        doctype: 'CRM Lead',
+        name: leadId,
+        fieldname: 'custom_inbox',
+        value: 0
+      })
+    })
+    
+    updateInbox.submit({}, {
+      onSuccess: () => {
+        // Update the local data to reflect the change
+        const leadRow = rows.value.find(r => r.name === leadId)
+        if (leadRow) {
+          leadRow.custom_inbox = 0
+        }
+      },
+      onError: (err) => {
+        console.error('Failed to update inbox:', err)
+      }
+    })
+  }
 }
 </script>

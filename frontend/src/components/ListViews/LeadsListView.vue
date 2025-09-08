@@ -160,9 +160,16 @@
           </div>
           <div
             v-else
-            class="truncate text-base"
+            :class="['truncate text-base', row?.custom_inbox == 1 ? 'font-bold' : '']"
             @click="
               (event) =>
+              {
+                if (row && row.custom_inbox == 1) {
+                  emit('updateInbox', {
+                    leadId: row.name,
+                    currentValue: row.custom_inbox
+                  });
+                } 
                 emit('applyFilter', {
                   event,
                   idx,
@@ -170,6 +177,7 @@
                   item,
                   firstColumn: columns[0],
                 })
+              }
             "
           >
             {{ label }}
@@ -250,6 +258,7 @@ const emit = defineEmits([
   'applyLikeFilter',
   'likeDoc',
   'selectionsChanged',
+  'updateInbox',
 ])
 
 const route = useRoute()

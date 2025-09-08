@@ -570,7 +570,7 @@ async function deleteLeadWithModal(name) {
 
 // Add this resource to fetch yorecare enquiries (add this after the lead resource definition)
 const yorecareEnquiries = createResource({
-  url: 'yorecare_frappe_custom.yorecare.doctype.yorecare_enquiry.api.get_linked_enquiries',
+  url: 'yorecare_frappe_custom.api.get_linked_enquiries',
   cache: ['yorecareEnquiries', props.leadId],
   params: {
     crm_lead: props.leadId,

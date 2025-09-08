@@ -239,7 +239,7 @@ const tabs = [
 ]
 
 const leads = createResource({
-  url: 'yorecare_frappe_custom.yorecare.doctype.yorecare_enquiry.api.get_linked_lead',
+  url: 'yorecare_frappe_custom.api.get_linked_lead',
   cache: ['leads', props.contactExpertRequestId],
   params: {
     crm_lead: props.contactExpertRequestId,
