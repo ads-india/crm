@@ -165,6 +165,7 @@
     @selectionsChanged="
       (selections) => viewControls.updateSelections(selections)
     "
+    @updateInbox="updateYorecareEnquiryInbox"
   />
   <div v-else-if="enquiries.data" class="flex h-full items-center justify-center">
     <div class="flex flex-col items-center gap-3 text-xl font-medium text-ink-gray-4">
@@ -220,7 +221,7 @@ import { usersStore } from '@/stores/users'
 import { statusesStore } from '@/stores/statuses'
 import { callEnabled } from '@/composables/settings'
 import { formatDate, timeAgo, website, formatTime } from '@/utils'
-import { Avatar, Tooltip, Dropdown } from 'frappe-ui'
+import { Avatar, Tooltip, Dropdown, createResource } from 'frappe-ui'
 import { useRoute } from 'vue-router'
 import { ref, computed, reactive, h } from 'vue'
 
@@ -452,5 +453,32 @@ const task = ref({
 function showTask(name) {
   docname.value = name
   showTaskModal.value = true
+}
+
+function updateYorecareEnquiryInbox({ enquiryId, currentValue }) {
+  if (currentValue === 1) {
+    const updateInbox = createResource({
+      url: 'frappe.client.set_value',
+      makeParams: () => ({
+        doctype: 'Yorecare Enquiry',
+        name: enquiryId,
+        fieldname: 'inbox',
+        value: 0
+      })
+    })
+
+    updateInbox.submit({}, {
+      onSuccess: () => {
+        // Update the local data to reflect the change
+        const enquiryRow = rows.value.find(r => r.name === enquiryId)
+        if (enquiryRow) {
+          enquiryRow.inbox = 0
+        }
+      },
+      onError: (err) => {
+        console.error('Failed to update inbox:', err)
+      }
+    })
+  }
 }
 </script>

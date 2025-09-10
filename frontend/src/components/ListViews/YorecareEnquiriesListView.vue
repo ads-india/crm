@@ -125,9 +125,15 @@
           </div>
           <div
             v-else
-            class="truncate text-base"
+            :class="['truncate text-base', row?.inbox == 1 ? 'font-bold' : '']"
             @click="
-              (event) =>
+              (event) =>{
+                if (row && row.inbox == 1) {
+                  emit('updateInbox', {
+                    enquiryId: row.name,
+                    currentValue: row.inbox
+                  });
+                }
                 emit('applyFilter', {
                   event,
                   idx,
@@ -135,6 +141,7 @@
                   item,
                   firstColumn: columns[0],
                 })
+              }
             "
           >
             {{ label }}
@@ -215,6 +222,7 @@ const emit = defineEmits([
   'applyLikeFilter',
   'likeDoc',
   'selectionsChanged',
+  'updateInbox'
 ])
 
 const route = useRoute()
