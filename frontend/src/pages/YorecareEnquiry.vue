@@ -160,7 +160,7 @@ import {
   usePageMeta,
   toast,
 } from 'frappe-ui'
-import { ref, computed, h } from 'vue'
+import { ref, computed, h, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const { brand } = getSettings()
@@ -184,7 +184,7 @@ const errorTitle = ref('')
 const errorMessage = ref('')
 
 const { document: enquiry } = useDocument('Yorecare Enquiry', props.yorecareEnquiryId)
-
+console.log('Yorecare Enquiry loaded', props.yorecareEnquiryId, enquiry)
 const breadcrumbs = computed(() => {
   let items = [{ label: __('Yorecare Enquiries'), route: { name: 'Yorecare Enquiries' } }]
 
@@ -311,4 +311,27 @@ const leadColumns = [
     width: '12rem',
   },
 ]
+
+watch(() => enquiry.doc, (doc) => {
+  if (doc && doc.inbox === 1) {
+    const updateInbox = createResource({
+      url: 'frappe.client.set_value',
+      makeParams: () => ({
+        doctype: 'Yorecare Enquiry',
+        name: doc.name,
+        fieldname: 'inbox',
+        value: 0
+      })
+    })
+
+    updateInbox.submit({}, {
+      onSuccess: () => {
+        enquiry.reload()
+      },
+      onError: (err) => {
+        console.error('Error updating inbox:', err)
+      }
+    })
+  }
+}, { immediate: true })
 </script>
