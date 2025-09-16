@@ -184,7 +184,7 @@ const errorTitle = ref('')
 const errorMessage = ref('')
 
 const { document: enquiry } = useDocument('Yorecare Enquiry', props.yorecareEnquiryId)
-console.log('Yorecare Enquiry loaded', props.yorecareEnquiryId, enquiry)
+
 const breadcrumbs = computed(() => {
   let items = [{ label: __('Yorecare Enquiries'), route: { name: 'Yorecare Enquiries' } }]
 
