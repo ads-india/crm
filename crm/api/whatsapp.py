@@ -2,6 +2,7 @@ import json
 
 import frappe
 from frappe import _
+import requests
 
 from crm.api.doc import get_assigned_users
 from crm.fcrm.doctype.crm_notification.crm_notification import notify_user
@@ -279,21 +280,84 @@ def create_whatsapp_message(
 
 @frappe.whitelist()
 def send_whatsapp_template(reference_doctype, reference_name, template, to):
-  template_doc = frappe.get_doc("WhatsApp Templates", template)
-  doc = frappe.new_doc("WhatsApp Message")
-  doc.update(
-    {
-      "reference_doctype": reference_doctype,
-      "reference_name": reference_name,
-      "message_type": "Manual",
-      "message": template_doc.template,
-      "content_type": "text",
-      "template": template,
-      "to": to,
+    yorecare_settings = frappe.get_doc("Yorecare Settings", "Yorecare Settings")
+
+    # Find the matching template mapping
+    exotel_template_name = None
+    for t in yorecare_settings.message_templates:
+        if t.whatsapp_template_name == template:
+            exotel_template_name = t.exotel_template_name
+            break
+
+    # Fallback: no mapping, store as manual message
+    if not exotel_template_name:
+        template_doc = frappe.get_doc("WhatsApp Templates", template)
+        doc = frappe.new_doc("WhatsApp Message")
+        doc.update(
+            {
+                "reference_doctype": reference_doctype,
+                "reference_name": reference_name,
+                "message_type": "Manual",
+                "message": template_doc.template,
+                "content_type": "text",
+                "to": to,
+            }
+        )
+        doc.insert(ignore_permissions=True)
+        return doc.name
+
+    # Load WhatsApp Settings for API
+    whatsapp_settings = frappe.get_doc("WhatsApp Settings", "WhatsApp Settings")
+    api_key = whatsapp_settings.api_key
+    api_token = whatsapp_settings.get_password("api_token")
+    subdomain = whatsapp_settings.subdomain
+    sid = whatsapp_settings.sid
+    from_number = whatsapp_settings.from_number.replace("+", "")
+    to = to.replace("+", "")
+
+    url = f"https://{subdomain}/v2/accounts/{sid}/messages"
+
+    payload = {
+        "whatsapp": {
+            "messages": [
+                {
+                    "from": from_number,
+                    "to": to,
+                    "content": {
+                        "type": "template",
+                        "template": {
+                            "name": exotel_template_name,
+                            "language": {
+                                "policy": "deterministic",
+                                "code": "en"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
     }
-  )
-  doc.insert(ignore_permissions=True)
-  return doc.name
+
+    headers = {"Content-Type": "application/json"}
+
+    response = requests.post(
+        url,
+        auth=(api_key, api_token),
+        headers=headers,
+        data=json.dumps(payload)
+    )
+
+    # On successful send, add entry in 'Exotel Templates Log'
+    if response.status_code in (200, 202):
+        doc = frappe.new_doc("Exotel Templates Log")
+        doc.update(
+            {
+                "mobile_number": to,
+                "exotel_template_name": exotel_template_name,
+            }
+        )
+        doc.insert(ignore_permissions=True)
+        return doc.name
 
 
 @frappe.whitelist()

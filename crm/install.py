@@ -172,6 +172,10 @@ def add_default_fields_layout(force=False):
 			"doctype": "Yorecare Log",
 			"layout": '[{"label":"Yorecare Log Quick Entry","name":"yorecare_log_quick_entry_section","opened":true,"columns":[{"name":"column_main","fields":["user_name","phone_number","age","gender","source","type","pincode","medicine_list","prescription","details","status","exception_info"]}]}]'
 		},
+		"Exotel Templates Log-Quick Entry": {
+			"doctype": "Exotel Templates Log",
+			"layout": '[{"label":"Exotel Templates Log Quick Entry","name":"exotel_templates_log_quick_entry_section","opened":true,"columns":[{"name":"column_main","fields":["mobile_number","exotel_template_name"]}]}]'
+		},
 	}
 
 	sidebar_fields_layouts = {
@@ -197,7 +201,11 @@ def add_default_fields_layout(force=False):
 		},
 		"Yorecare Log-Side Panel": {
 			"doctype": "Yorecare Log",
-			"layout": '[{"label":"Yorecare Log Details","name":"yorecare_log_details_section","opened":true,"columns":[{"name":"column_main","fields":["user_name","phone_number","age","gender","source","type","pincode","medicine_list","prescription","details","status","exception_info"]}]}]'
+			"layout": '[{"label":"Yorecare Log Details","name":"yorecare_log_details_section","opened":true,"columns":[{"name":"column_details","fields":["user_name","phone_number","age","gender","source","type","pincode","medicine_list","prescription","details","status","exception_info"]}]}]'
+		},
+		"Exotel Templates Log-Side Panel": {
+			"doctype": "Exotel Templates Log",
+			"layout": '[{"label":"Exotel Templates Log Details","name":"exotel_templates_log_details_section","opened":true,"columns":[{"name":"column_details","fields":["mobile_number","exotel_template_name"]}]}]'
 		},
 	}
 

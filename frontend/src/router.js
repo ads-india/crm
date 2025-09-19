@@ -84,19 +84,7 @@ const routes = [
     name: 'Call Logs',
     component: () => import('@/pages/CallLogs.vue'),
   },
-  // Yorecare Enquiry Routes
-  {
-    alias: '/yorecare-logs',
-    path: '/yorecare-logs/view/:viewType?',
-    name: 'Yorecare Logs',
-    component: () => import('@/pages/YorecareLogs.vue'),
-  },
-  {
-    path: '/yorecare-logs/:yorecareLogId',
-    name: 'Yorecare Log',
-    component: () => import(`@/pages/${handleMobileView('YorecareLog')}.vue`),
-    props: true,
-  },
+  // Yorecare Routes
   {
     alias: '/yorecare-enquiries',
     path: '/yorecare-enquiries/view/:viewType?',
@@ -143,6 +131,30 @@ const routes = [
     path: '/contact-expert-requests/:contactExpertRequestId',
     name: 'Contact Expert Request',
     component: () => import(`@/pages/${handleMobileView('ContactExpertRequest')}.vue`),
+    props: true,
+  },
+  {
+    alias: '/yorecare-logs',
+    path: '/yorecare-logs/view/:viewType?',
+    name: 'Yorecare Logs',
+    component: () => import('@/pages/YorecareLogs.vue'),
+  },
+  {
+    path: '/yorecare-logs/:yorecareLogId',
+    name: 'Yorecare Log',
+    component: () => import(`@/pages/${handleMobileView('YorecareLog')}.vue`),
+    props: true,
+  },
+  {
+    alias: '/exotel-templates-logs',
+    path: '/exotel-templates-logs/view/:viewType?',
+    name: 'Exotel Templates Logs',
+    component: () => import('@/pages/ExotelTemplatesLogs.vue'),
+  },
+  {
+    path: '/exotel-templates-logs/:exotelTemplatesLogId',
+    name: 'Exotel Templates Log',
+    component: () => import(`@/pages/${handleMobileView('ExotelTemplatesLog')}.vue`),
     props: true,
   },
   {

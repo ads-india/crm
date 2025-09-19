@@ -308,6 +308,11 @@ const links = [
     icon: NoteIcon,
     to: 'Yorecare Logs',
   },
+  {
+    label: 'Exotel Templates Log',
+    icon: NoteIcon,
+    to: 'Exotel Templates Logs',
+  },
 ]
 
 const allViews = computed(() => {
